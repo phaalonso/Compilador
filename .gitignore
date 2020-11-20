@@ -2,3 +2,5 @@ __pycache__/*
 
 *.pyc
 src/analisador_lexico/__pycache__/*
+src/analisador_lexico/__pycache__/Analisador.cpython-38.pyc
+src/analisador_lexico/__pycache__/LerArquivoEntrada.cpython-38.pyc
