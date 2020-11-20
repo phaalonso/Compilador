@@ -38,16 +38,30 @@ class Analisador:
                     break
                 pass
             else:
-                # Se for algum simbolo indicando uma operação, ele espera a leitura
-                # antes de poder sair. Para poder verificar caracteres de operação
-                # com mais de um dígito
-                # print(texto, caractere)
+                """
+                    Se for algum simbolo indicando uma operação, ele espera a leitura
+                    antes de poder sair. Para poder verificar caracteres de operação
+                    com mais de um dígito
+                """
+                print(texto, caractere)
                 if caractere not in operators:
                     if aux := tokens.get(caractere):
-                        # Se o caractere atual for um lexema, e tiver texto deverá apontar
-                        # o ponteiro, um caractere para trás
-                        # assim ele sairá do loop retornara o texto,
-                        # e voltar para essa função fazendo que o lexema será processado
+                        """
+                            Se o caractere atual for um lexema, e tiver texto deverá apontar
+                            o ponteiro, um caractere para trás
+                            assim ele sairá do loop retornara o texto,
+                            e voltar para essa função fazendo que o lexema será processado
+
+                            Nos casos de se tratar do inicio do buffer esquerdo, a função já iŕa trocar o ponteiro
+                            para o final do buffer direito
+
+                            Por exemplo se existir no buffer "arquivo:INT" ocorreria os seguintes passos:
+                            1. Leria arquivo e armazenaria na variavel texto
+                            2. Detectaria o delimitador :
+                            3. Detectou que já existe conteudo no buffer texto, ou seja ele já possui conteudo que não é relacionado ao caractere lido
+                            4. Retorna o conteudo do buffer texto, e retrocede o ponteiro
+                            5. Voltando aqui, ele leria o delimitador novamente, e como o buffer texto esta vazio irá retornar o Token delimitador 
+                        """
                         if len(texto) > 1:
                             self.arquivo.retroceder()
                             break
@@ -56,7 +70,7 @@ class Analisador:
                 else:
                     #! Caractere é um operador como <, >, =
                     # Verifica se o buffer possui algum caracteres, se possuir e ele não for um dos lexemas irá retornar um caractere para trás
-                # any(char in operators for char in texto) => verifica se alguns dos caracteres presentes em texto é um dos operadores
+                    # any(char in operators for char in texto) => verifica se alguns dos caracteres presentes em texto é um dos operadores
                     if len(texto) > 0:
                         if not any(char in operators for char in texto):
                             self.arquivo.retroceder()
