@@ -28,7 +28,7 @@ class Analisador:
     def ler_token(self) -> Token:
         texto = []
 
-        while caractere := self.arquivo.ler_caractere():
+        while caractere := self.arquivo.lerCaractereBuffer():
             # Se for um caractere especial, e ainda não possuir nenhuk
             # caractere armazenado, ele irá ignorar
             if caractere in [' ', '', '\n', '\r', '\t']:
@@ -48,8 +48,8 @@ class Analisador:
                         # o ponteiro, um caractere para trás
                         # assim ele sairá do loop retornara o texto,
                         # e voltar para essa função fazendo que o lexema será processado
-                        if len(texto) > 0:
-                            self.arquivo.seek(self.arquivo.tell() - 1)
+                        if len(texto) > 1:
+                            self.arquivo.retroceder()
                             break
                         else:
                             return aux
@@ -59,7 +59,7 @@ class Analisador:
                 # any(char in operators for char in texto) => verifica se alguns dos caracteres presentes em texto é um dos operadores
                     if len(texto) > 0:
                         if not any(char in operators for char in texto):
-                            self.arquivo.seek(self.arquivo.tell() - 1)
+                            self.arquivo.retroceder()
                             break
                         else:
                             # print('Eae kkk', texto, caractere)
