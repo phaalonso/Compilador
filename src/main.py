@@ -8,7 +8,9 @@ if __name__ == "__main__":
     print(sys.argv[1])
     analisador = Lexico.Analisador(sys.argv[1])
 
-    while t := analisador.ler_token():
+    t = analisador.ler_proximo_token()
+    while t.token != Lexico.TipoToken.Fim :
+        t = analisador.ler_proximo_token()
         print(t, end='\n')
 
 
